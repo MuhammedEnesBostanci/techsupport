@@ -10,7 +10,7 @@ https://api.stackexchange.com/
 https://techsupport0.netlify.app/
 
 ##  Tanıtım Videosu
-https://... (Google Form’a yüklenen video)
+https://docs.google.com/videos/d/1zjCK4et59E6R5el0wnVs-7qY4URSD_8YS0g2L9meGus/edit?usp=sharing
 
 ##  Proje Amacı
 StackSupport, yazılım geliştiriciler için sık karşılaşılan
@@ -128,4 +128,5 @@ techsupport-hub/
 **Son Güncelleme:** 12 Ocak 2026
 
 Tech Support Hub ile ilgili sorularınız için bizimle iletişime geçin! 🚀
+
 
