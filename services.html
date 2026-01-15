@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10b981" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="TechSupport" />
+    <meta name="description" content="TechSupport Hub - Yazılım sorularına profesyonel cevaplar. Stack Exchange API ile binlerce geliştiricinin deneyiminden yararlanın." />
+    <meta name="application-name" content="TechSupport Hub" />
+    <meta name="msapplication-config" content="none" />
+    <meta name="msapplication-TileColor" content="#10b981" />
+    <title>Sorular - TechSupport Hub</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🛠️</text></svg>"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2310b981' width='180' height='180' rx='40'/><text y='135' font-size='100' text-anchor='middle' x='90'>🛠️</text></svg>"
+    />
+  </head>
+  <body>
+    <!-- Header & Navigation -->
+    <header>
+      <nav>
+        <div class="logo">🛠️ TechSupport Hub</div>
+        <ul>
+          <li><a href="index.html">Ana Sayfa</a></li>
+          <li><a href="services.html">Sorular</a></li>
+          <li><a href="about.html">Hakkımızda</a></li>
+          <li><a href="contact.html">İletişim</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section style="background: var(--bg-light-secondary); padding: 40px 20px">
+      <div class="container">
+        <h1>Yazılım Soruları</h1>
+        <p style="color: var(--text-medium); margin: 0.5rem 0">
+          Stack Exchange topluluğundan güncel sorulara göz atın
+        </p>
+      </div>
+    </section>
+
+    <!-- Filters & Search -->
+    <section style="padding: 60px 20px; background: var(--bg-light-secondary)">
+      <div class="container" style="max-width: 900px">
+        <!-- Google Gibi Arama Çubuğu -->
+        <div style="margin-bottom: 2rem">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              background: var(--bg-light);
+              border-radius: 50px;
+              box-shadow: var(--shadow);
+              padding: 0.5rem 1.5rem;
+              border: 2px solid transparent;
+              transition: all 0.3s ease;
+            "
+            id="searchContainer"
+          >
+            <span style="font-size: 1.2rem; margin-right: 1rem">🔍</span>
+            <input
+              type="text"
+              id="tagSearch"
+              style="
+                flex: 1;
+                border: none;
+                background: transparent;
+                outline: none;
+                font-size: 1rem;
+                color: var(--text-dark);
+              "
+              placeholder="Programlama dilini, kütüphaneyi veya konuyu arayın..."
+            />
+          </div>
+          <!-- Öneriler -->
+          <div
+            id="suggestions"
+            style="
+              display: none;
+              margin-top: 1rem;
+              background: var(--bg-light);
+              border-radius: 8px;
+              box-shadow: var(--shadow);
+              position: absolute;
+              width: 90%;
+              max-width: 850px;
+              z-index: 100;
+              max-height: 400px;
+              overflow-y: auto;
+            "
+          ></div>
+        </div>
+
+        <!-- Filtreler (Modern Grid) -->
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+          "
+        >
+          <!-- Sıralama -->
+          <div>
+            <label
+              style="
+                display: block;
+                font-size: 0.9rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                color: var(--text-dark);
+              "
+              >Sıralama</label
+            >
+            <select
+              id="sortSelect"
+              style="
+                width: 100%;
+                padding: 0.75rem;
+                border: 1px solid var(--border-light);
+                border-radius: 8px;
+                background: var(--bg-light);
+                color: var(--text-dark);
+                cursor: pointer;
+                font-size: 0.95rem;
+              "
+            >
+              <option value="activity">📊 En Son Aktivite</option>
+              <option value="votes">👍 En Çok Oy Alan</option>
+              <option value="creation">⭐ En Yeni</option>
+            </select>
+          </div>
+
+          <!-- Sonuç Sayısı -->
+          <div>
+            <label
+              style="
+                display: block;
+                font-size: 0.9rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                color: var(--text-dark);
+              "
+              >Gösterilecek Sonuç</label
+            >
+            <select
+              id="limitSelect"
+              style="
+                width: 100%;
+                padding: 0.75rem;
+                border: 1px solid var(--border-light);
+                border-radius: 8px;
+                background: var(--bg-light);
+                color: var(--text-dark);
+                cursor: pointer;
+                font-size: 0.95rem;
+              "
+            >
+              <option value="5">5 Sonuç</option>
+              <option value="10">10 Sonuç</option>
+              <option value="15" selected>15 Sonuç</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Popüler Taglar -->
+        <div style="margin-top: 2rem">
+          <p
+            style="
+              font-weight: 600;
+              margin-bottom: 1rem;
+              color: var(--text-dark);
+            "
+          >
+            📌 Popüler Konular
+          </p>
+          <div
+            id="popularTags"
+            style="display: flex; flex-wrap: wrap; gap: 0.75rem"
+          >
+            <!-- Dinamik tag butonları -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Questions List -->
+    <section style="padding: 40px 20px">
+      <div class="container">
+        <!-- API Uyarısı -->
+        <div
+          id="apiWarning"
+          style="
+            background: rgba(249, 115, 22, 0.1);
+            border-left: 4px solid #f97316;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            color: #92400e;
+            display: none;
+          "
+        >
+          ⚠️ <strong>Bilgi:</strong> Canlı API erişilemiyor, örnek veri
+          gösteriliyor.
+        </div>
+
+        <!-- Loading -->
+        <div
+          id="loading"
+          style="text-align: center; padding: 60px 20px; display: block"
+        >
+          <div
+            style="
+              width: 50px;
+              height: 50px;
+              border: 4px solid var(--border-light);
+              border-top-color: var(--primary-green);
+              border-radius: 50%;
+              animation: spin 1s linear infinite;
+              margin: 0 auto;
+            "
+          ></div>
+          <p style="color: var(--text-medium); margin-top: 1.5rem">
+            Sorular yükleniyor...
+          </p>
+        </div>
+
+        <!-- Sonuç Sayısı -->
+        <div id="resultInfo" style="margin-bottom: 2rem; display: none">
+          <p style="color: var(--text-medium); font-weight: 500">
+            <strong id="resultCount">0</strong> soru gösteriliyor
+          </p>
+        </div>
+
+        <!-- Questions Grid -->
+        <div id="questionsList" style="display: none">
+          <!-- Dinamik içerik -->
+        </div>
+
+        <!-- Boş Durum -->
+        <div
+          id="emptyState"
+          style="text-align: center; padding: 60px 20px; display: none"
+        >
+          <div
+            style="
+              font-size: 3rem;
+              color: var(--text-light);
+              margin-bottom: 1.5rem;
+            "
+          >
+            🔍
+          </div>
+          <h3 style="color: var(--text-light)">Sonuç Bulunamadı</h3>
+          <p style="color: var(--text-medium)">
+            Farklı bir etiket veya kriter deneyin.
+          </p>
+        </div>
+
+        <!-- Hata Durumu -->
+        <div
+          id="errorState"
+          style="
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            border-radius: 6px;
+            color: #991b1b;
+            display: none;
+          "
+        >
+          <strong>❌ Hata:</strong> Veri yüklenirken bir sorun oluştu. Lütfen
+          daha sonra tekrar deneyin.
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/install.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const loading = document.getElementById("loading");
+        const questionsList = document.getElementById("questionsList");
+        const apiWarning = document.getElementById("apiWarning");
+        const emptyState = document.getElementById("emptyState");
+        const errorState = document.getElementById("errorState");
+        const resultInfo = document.getElementById("resultInfo");
+        const resultCount = document.getElementById("resultCount");
+
+        const tagSearch = document.getElementById("tagSearch");
+        const suggestions = document.getElementById("suggestions");
+        const sortSelect = document.getElementById("sortSelect");
+        const limitSelect = document.getElementById("limitSelect");
+        const popularTags = document.getElementById("popularTags");
+        const searchContainer = document.getElementById("searchContainer");
+
+        let currentTag = "javascript";
+        let currentSort = "activity";
+        let currentLimit = 15;
+        let allTags = [];
+
+        // İlk yükleme
+        await loadQuestions();
+
+        // Popüler tagları yükle
+        const tagsResult = await getPopularTags();
+        if (tagsResult.success && tagsResult.data) {
+          allTags = tagsResult.data;
+          popularTags.innerHTML = tagsResult.data
+            .slice(0, 8)
+            .map(
+              (tag) =>
+                `<button class="tag-btn" style="background: var(--bg-light-tertiary); color: var(--primary-green); border: 1px solid var(--border-light); padding: 0.6rem 1.2rem; border-radius: 20px; cursor: pointer; font-size: 0.95rem; transition: all 0.3s ease; font-weight: 500;" data-tag="${tag.name}">
+                        ${tag.name}
+                    </button>`
+            )
+            .join("");
+
+          // Tag butonlarına event listener
+          document.querySelectorAll(".tag-btn").forEach((btn) => {
+            btn.addEventListener("click", async (e) => {
+              currentTag = e.target.dataset.tag;
+              tagSearch.value = currentTag;
+              suggestions.style.display = "none";
+              await loadQuestions();
+            });
+            btn.addEventListener("mouseover", (e) => {
+              e.target.style.background = "var(--primary-green)";
+              e.target.style.color = "white";
+            });
+            btn.addEventListener("mouseout", (e) => {
+              e.target.style.background = "var(--bg-light-tertiary)";
+              e.target.style.color = "var(--primary-green)";
+            });
+          });
+        }
+
+        // Arama çubuğu fokus
+        tagSearch.addEventListener("focus", () => {
+          searchContainer.style.borderColor = "var(--primary-green)";
+        });
+
+        tagSearch.addEventListener("blur", () => {
+          searchContainer.style.borderColor = "transparent";
+          setTimeout(() => {
+            suggestions.style.display = "none";
+          }, 200);
+        });
+
+        // Yazı yazarken öneriler göster
+        tagSearch.addEventListener("input", (e) => {
+          const query = e.target.value.toLowerCase().trim();
+
+          if (query.length === 0) {
+            suggestions.style.display = "none";
+            return;
+          }
+
+          // Filtrelenmiş öneriler
+          const filtered = allTags
+            .filter((tag) => tag.name.toLowerCase().includes(query))
+            .slice(0, 10);
+
+          if (filtered.length > 0) {
+            suggestions.innerHTML = filtered
+              .map(
+                (tag) =>
+                  `<div style="padding: 0.75rem 1.5rem; cursor: pointer; color: var(--text-dark); transition: background 0.2s ease; border-bottom: 1px solid var(--border-light);"
+                              onmouseover="this.style.background='var(--bg-light-secondary)';"
+                              onmouseout="this.style.background='transparent';"
+                              onclick="document.getElementById('tagSearch').value='${tag.name}'; document.getElementById('suggestions').style.display='none'; loadQuestionsFromTag('${tag.name}');">
+                            <span style="font-weight: 500;">${tag.name}</span>
+                            <span style="color: var(--text-light); margin-left: 0.5rem;">${tag.count} soru</span>
+                        </div>`
+              )
+              .join("");
+            suggestions.style.display = "block";
+          } else {
+            suggestions.style.display = "none";
+          }
+        });
+
+        // Enter tuşu ile arama
+        tagSearch.addEventListener("keypress", async (e) => {
+          if (e.key === "Enter") {
+            currentTag = tagSearch.value.trim() || "javascript";
+            suggestions.style.display = "none";
+            await loadQuestions();
+          }
+        });
+
+        // Sıralama
+        sortSelect.addEventListener("change", async (e) => {
+          currentSort = e.target.value;
+          await loadQuestions();
+        });
+
+        // Limit
+        limitSelect.addEventListener("change", async (e) => {
+          currentLimit = parseInt(e.target.value);
+          await loadQuestions();
+        });
+
+        // Soruları yükle
+        async function loadQuestions() {
+          // Tüm durumları gizle
+          loading.style.display = "block";
+          questionsList.style.display = "none";
+          emptyState.style.display = "none";
+          errorState.style.display = "none";
+          apiWarning.style.display = "none";
+          resultInfo.style.display = "none";
+
+          try {
+            const result = await getQuestions(currentTag, currentLimit);
+
+            loading.style.display = "none";
+
+            // Sadece gerçek API errorlarında uyarı göster
+            if (result.fromCache && !result.isExample) {
+              apiWarning.style.display = "block";
+            }
+
+            if (result.success && result.data && result.data.length > 0) {
+              displayQuestions(result.data);
+              resultCount.textContent = result.data.length;
+              resultInfo.style.display = "block";
+              questionsList.style.display = "flex";
+              questionsList.style.flexDirection = "column";
+              questionsList.style.gap = "1rem";
+            } else if (result.success && result.data.length === 0) {
+              emptyState.style.display = "block";
+            } else {
+              errorState.style.display = "block";
+            }
+          } catch (error) {
+            loading.style.display = "none";
+            errorState.style.display = "block";
+            console.error("Veri yükleme hatası:", error);
+          }
+        }
+
+        // Tag seçilince soruları yükle
+        async function loadQuestionsFromTag(tag) {
+          currentTag = tag;
+          await loadQuestions();
+        }
+
+        // Soru kutucuklarını modern şekilde göster
+        function displayQuestions(questions) {
+          questionsList.innerHTML = questions
+            .map((q) => {
+              const date = new Date(q.creation_date * 1000).toLocaleDateString(
+                "tr-TR"
+              );
+              const hasAnswers = q.answer_count > 0;
+
+              return `
+                        <div style="width: 100%;">
+                            <div style="background: var(--bg-light); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; cursor: pointer;" 
+                                 class="question-card"
+                                 onmouseover="this.style.boxShadow='var(--shadow)'; this.style.transform='translateY(-4px)';"
+                                 onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)';">
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem;">
+                                    <!-- Sol taraf: Başlık ve Tarih -->
+                                    <div style="flex: 1;">
+                                        <a href="detail.html?id=${
+                                          q.question_id
+                                        }" style="text-decoration: none;">
+                                            <h3 style="color: var(--primary-green); font-size: 1.1rem; margin: 0 0 0.5rem 0; line-height: 1.4;">
+                                                ${q.title}
+                                            </h3>
+                                        </a>
+                                        <p style="color: var(--text-light); font-size: 0.9rem; margin: 0.5rem 0;">
+                                            📅 ${date}
+                                        </p>
+                                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem;">
+                                            ${q.tags
+                                              .slice(0, 4)
+                                              .map(
+                                                (tag) =>
+                                                  `<span style="background: rgba(16, 185, 129, 0.1); color: var(--primary-green); padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500;">${tag}</span>`
+                                              )
+                                              .join("")}
+                                        </div>
+                                    </div>
+
+                                    <!-- Sağ taraf: İstatistikler -->
+                                    <div style="display: flex; gap: 2rem; text-align: center; min-width: fit-content; align-items: center; padding: 1rem; background: rgba(16, 185, 129, 0.05); border-radius: 12px;">
+                                        <div style="padding: 0.5rem 1rem; border-right: 2px solid rgba(16, 185, 129, 0.2);">
+                                            <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-green); line-height: 1;">${
+                                              q.score
+                                            }</div>
+                                            <div style="font-size: 0.8rem; color: var(--text-light); font-weight: 600; margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.5px;">⭐ Puan</div>
+                                        </div>
+                                        <div style="padding: 0.5rem 1rem; border-right: 2px solid rgba(16, 185, 129, 0.2);">
+                                            <div style="font-size: 1.8rem; font-weight: 800; color: ${
+                                              hasAnswers
+                                                ? "var(--primary-green)"
+                                                : "var(--text-light)"
+                                            }; line-height: 1;">${q.answer_count}</div>
+                                            <div style="font-size: 0.8rem; color: var(--text-light); font-weight: 600; margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.5px;">💬 Cevap</div>
+                                        </div>
+                                        <div style="padding: 0.5rem 1rem;">
+                                            <div style="font-size: 1.8rem; font-weight: 800; color: #3b82f6; line-height: 1;">${
+                                              q.view_count
+                                            }</div>
+                                            <div style="font-size: 0.8rem; color: var(--text-light); font-weight: 600; margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.5px;">👁️ Görüntüle</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Detay Butonu -->
+                                <div style="margin-top: 1rem;">
+                                    <a href="detail.html?id=${
+                                      q.question_id
+                                    }" style="display: inline-block; padding: 0.6rem 1.2rem; background: var(--primary-green); color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;"
+                                       onmouseover="this.style.background='var(--primary-green-dark)';"
+                                       onmouseout="this.style.background='var(--primary-green)';">
+                                        Detayları Görüntüle →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+            })
+            .join("");
+        }
+      });
+    </script>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>
+          <a href="index.html">Ana Sayfa</a> |
+          <a href="about.html">Hakkımızda</a> |
+          <a href="contact.html">İletişim</a>
+        </p>
+      </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/install.js"></script>
+  </body>
+</html>

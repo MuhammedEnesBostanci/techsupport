@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#10b981">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="TechSupport">
+    <meta name="description" content="TechSupport Hub - Yazılım sorularına profesyonel cevaplar. Stack Exchange API ile binlerce geliştiricinin deneyiminden yararlanın.">
+    <meta name="application-name" content="TechSupport Hub">
+    <meta name="msapplication-config" content="none">
+    <meta name="msapplication-TileColor" content="#10b981">
+    <title>İletişim - TechSupport Hub</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🛠️</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2310b981' width='180' height='180' rx='40'/><text y='135' font-size='100' text-anchor='middle' x='90'>🛠️</text></svg>">
+    
+    <style>
+      .phone-input-group {
+        display: flex;
+        gap: 10px;
+      }
+      .country-code-select {
+        width: 140px;
+        flex-shrink: 0;
+      }
+      .phone-number-input {
+        flex: 1;
+      }
+      .card {
+        background-color: var(--bg-light-secondary);
+        border: 1px solid var(--border-light);
+        color: var(--text-dark);
+      }
+      .card-body {
+        color: var(--text-dark);
+      }
+      .card-title {
+        color: var(--text-dark);
+      }
+      .form-control, .form-select {
+        background-color: var(--bg-light);
+        border-color: var(--border-light);
+        color: var(--text-dark);
+      }
+      .form-control:focus, .form-select:focus {
+        background-color: var(--bg-light);
+        border-color: var(--primary-green);
+        color: var(--text-dark);
+      }
+      .text-muted {
+        color: var(--text-light) !important;
+      }
+      .btn-primary {
+        background-color: var(--primary-green);
+        border-color: var(--primary-green);
+      }
+      .btn-primary:hover {
+        background-color: var(--primary-green-dark);
+        border-color: var(--primary-green-dark);
+      }
+      .btn-outline-secondary {
+        color: var(--text-dark);
+        border-color: var(--border-light);
+      }
+      .btn-outline-secondary:hover {
+        background-color: var(--bg-light-tertiary);
+        border-color: var(--border-light);
+        color: var(--text-dark);
+      }
+      .btn-outline-primary {
+        color: var(--primary-green);
+        border-color: var(--primary-green);
+      }
+      .btn-outline-primary:hover {
+        background-color: var(--primary-green);
+        border-color: var(--primary-green);
+        color: white;
+      }
+      .btn-outline-linkedin {
+        color: #0077B5;
+        border-color: #0077B5;
+      }
+      .btn-outline-linkedin:hover {
+        background-color: #0077B5;
+        border-color: #0077B5;
+        color: white;
+      }
+      .btn-outline-instagram {
+        color: #E4405F;
+        border-color: #E4405F;
+      }
+      .btn-outline-instagram:hover {
+        background-color: #E4405F;
+        border-color: #E4405F;
+        color: white;
+      }
+      .btn-outline-facebook {
+        color: #1877F2;
+        border-color: #1877F2;
+      }
+      .btn-outline-facebook:hover {
+        background-color: #1877F2;
+        border-color: #1877F2;
+        color: white;
+      }
+      .btn-outline-youtube {
+        color: #FF0000;
+        border-color: #FF0000;
+      }
+      .btn-outline-youtube:hover {
+        background-color: #FF0000;
+        border-color: #FF0000;
+        color: white;
+      }
+      .btn-outline-info, .btn-outline-dark {
+        color: var(--text-dark);
+        border-color: var(--border-light);
+      }
+      .btn-outline-info:hover {
+        background-color: #0dcaf0;
+        border-color: #0dcaf0;
+        color: white;
+      }
+      .btn-outline-dark:hover {
+        background-color: var(--text-dark);
+        border-color: var(--text-dark);
+        color: white;
+      }
+      .btn-outline-x {
+        color: #000;
+        border-color: #000;
+      }
+      .btn-outline-x:hover {
+        background-color: #000;
+        border-color: #000;
+        color: white;
+      }
+      /* Dark mode button colors */
+      [data-theme="dark"] .btn-outline-linkedin {
+        color: #1E90FF;
+        border-color: #1E90FF;
+      }
+      [data-theme="dark"] .btn-outline-linkedin:hover {
+        background-color: #1E90FF;
+        border-color: #1E90FF;
+        color: white;
+      }
+      [data-theme="dark"] .btn-outline-instagram {
+        color: #FF6B9D;
+        border-color: #FF6B9D;
+      }
+      [data-theme="dark"] .btn-outline-instagram:hover {
+        background-color: #FF6B9D;
+        border-color: #FF6B9D;
+        color: white;
+      }
+      [data-theme="dark"] .btn-outline-facebook {
+        color: #4A9EFF;
+        border-color: #4A9EFF;
+      }
+      [data-theme="dark"] .btn-outline-facebook:hover {
+        background-color: #4A9EFF;
+        border-color: #4A9EFF;
+        color: white;
+      }
+      [data-theme="dark"] .btn-outline-youtube {
+        color: #FF6B6B;
+        border-color: #FF6B6B;
+      }
+      [data-theme="dark"] .btn-outline-youtube:hover {
+        background-color: #FF6B6B;
+        border-color: #FF6B6B;
+        color: white;
+      }
+      [data-theme="dark"] .btn-outline-x {
+        color: #666;
+        border-color: #666;
+      }
+      [data-theme="dark"] .btn-outline-x:hover {
+        background-color: #666;
+        border-color: #666;
+        color: white;
+      }
+      [data-theme="dark"] .btn-outline-dark {
+        color: #999;
+        border-color: #999;
+      }
+      [data-theme="dark"] .btn-outline-dark:hover {
+        background-color: #999;
+        border-color: #999;
+        color: white;
+      }
+      .alert {
+        background-color: var(--bg-light-secondary);
+        border-color: var(--border-light);
+        color: var(--text-dark);
+      }
+      .form-check-label {
+        color: var(--text-dark);
+      }
+      .invalid-feedback {
+        color: #dc3545;
+      }
+      footer {
+        background: var(--bg-light-secondary);
+        color: var(--text-dark);
+      }
+      footer a {
+        color: var(--primary-green);
+      }
+      @media (max-width: 992px) {
+        .col-lg-7,
+        .col-lg-5 {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+      }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                🛠️ TechSupport Hub
+            </div>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="services.html">Sorular</a></li>
+                <li><a href="about.html">Hakkımızda</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%); color: white; padding: 60px 20px; text-align: center;">
+        <div class="container">
+            <h1>İletişime Geçin</h1>
+            <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.9);">
+                Sorularınız, önerileriniz veya geri bildirimleriniz için bize ulaşın
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem;">📧 İletişim Formu</h3>
+
+                        <div id="successAlert" class="alert alert-success" style="display: none; background-color: #d1fae5; border: 1px solid #6ee7b7; color: #065f46; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <strong>✅ Başarılı!</strong> Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.
+                        </div>
+
+                        <div id="errorAlert" class="alert alert-danger" style="display: none; background-color: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <strong>❌ Hata!</strong> <span id="errorMessage"></span>
+                        </div>
+
+                        <form id="contactForm" novalidate>
+                            <!-- Ad Soyad -->
+                            <div style="margin-bottom: 1.5rem;">
+                                <label for="fullName" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-dark);">
+                                    Ad Soyad <span style="color: #dc3545;">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="fullName" placeholder="Adınızı ve soyadınızı girin" required minlength="3" />
+                                <div class="invalid-feedback" id="nameError" style="display: block; margin-top: 0.25rem;">
+                                    Lütfen sadece harf kullanarak en az 3 karakterden oluşan adınızı ve soyadınızı girin.
+                                </div>
+                            </div>
+
+                            <!-- E-posta -->
+                            <div style="margin-bottom: 1.5rem;">
+                                <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-dark);">
+                                    E-posta Adresi <span style="color: #dc3545;">*</span>
+                                </label>
+                                <input type="email" class="form-control" id="email" placeholder="ornek@email.com" required />
+                                <div class="invalid-feedback" id="emailError" style="display: block; margin-top: 0.25rem;">
+                                    Lütfen geçerli bir e-posta adresi girin (örn: kullanici@domain.com).
+                                </div>
+                            </div>
+
+                            <!-- Telefon -->
+                            <div style="margin-bottom: 1.5rem;">
+                                <label for="phone" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-dark);">Telefon</label>
+                                <div class="phone-input-group">
+                                    <select class="form-control country-code-select" id="countryCode">
+                                        <option value="+90" selected>🇹🇷 +90 (TR)</option>
+                                        <option value="+1">🇺🇸 +1 (US)</option>
+                                        <option value="+44">🇬🇧 +44 (UK)</option>
+                                        <option value="+49">🇩🇪 +49 (DE)</option>
+                                        <option value="+33">🇫🇷 +33 (FR)</option>
+                                        <option value="+39">🇮🇹 +39 (IT)</option>
+                                        <option value="+34">🇪🇸 +34 (ES)</option>
+                                        <option value="+31">🇳🇱 +31 (NL)</option>
+                                        <option value="+7">🇷🇺 +7 (RU)</option>
+                                        <option value="+86">🇨🇳 +86 (CN)</option>
+                                        <option value="+81">🇯🇵 +81 (JP)</option>
+                                        <option value="+82">🇰🇷 +82 (KR)</option>
+                                        <option value="+91">🇮🇳 +91 (IN)</option>
+                                        <option value="+61">🇦🇺 +61 (AU)</option>
+                                        <option value="+55">🇧🇷 +55 (BR)</option>
+                                        <option value="+52">🇲🇽 +52 (MX)</option>
+                                        <option value="+971">🇦🇪 +971 (AE)</option>
+                                        <option value="+966">🇸🇦 +966 (SA)</option>
+                                    </select>
+                                    <input type="tel" class="form-control phone-number-input" id="phone" placeholder="5XX XXX XX XX" pattern="[0-9]{10,15}" />
+                                </div>
+                                <div class="invalid-feedback" id="phoneError" style="display: block; margin-top: 0.25rem;">
+                                    Lütfen sadece rakam kullanarak geçerli bir telefon numarası girin (10-15 rakam).
+                                </div>
+                                <small style="color: var(--text-light); display: block; margin-top: 0.25rem;">İsteğe bağlı - Sadece rakam girin (başında 0 olmadan)</small>
+                            </div>
+
+                            <!-- Konu -->
+                            <div style="margin-bottom: 1.5rem;">
+                                <label for="subject" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-dark);">
+                                    Konu <span style="color: #dc3545;">*</span>
+                                </label>
+                                <select class="form-control" id="subject" required>
+                                    <option value="">Bir konu seçin</option>
+                                    <option value="question">Genel Soru</option>
+                                    <option value="support">Teknik Destek</option>
+                                    <option value="suggestion">Öneri</option>
+                                    <option value="bug">Hata Bildirimi</option>
+                                    <option value="other">Diğer</option>
+                                </select>
+                                <div class="invalid-feedback">Lütfen bir konu seçin.</div>
+                            </div>
+
+                            <!-- Mesaj -->
+                            <div style="margin-bottom: 1.5rem;">
+                                <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-dark);">
+                                    Mesajınız <span style="color: #dc3545;">*</span>
+                                </label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Mesajınızı buraya yazın..." required minlength="10"></textarea>
+                                <div class="invalid-feedback">
+                                    Lütfen en az 10 karakterden oluşan bir mesaj girin.
+                                </div>
+                                <small style="color: var(--text-light); display: block; margin-top: 0.25rem;">En az 10 karakter</small>
+                            </div>
+
+                            <!-- KVKK Onayı -->
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-dark);">
+                                    <input type="checkbox" id="privacyCheck" required style="width: 18px; height: 18px; cursor: pointer;" />
+                                    Kişisel verilerimin işlenmesini kabul ediyorum
+                                    <span style="color: #dc3545;">*</span>
+                                </label>
+                                <div class="invalid-feedback">Devam etmek için bu onayı vermelisiniz.</div>
+                            </div>
+
+                            <!-- Butonlar -->
+                            <div style="display: grid; gap: 1rem; margin-top: 2rem;">
+                                <button type="submit" class="btn btn-primary" id="submitBtn" style="padding: 0.75rem; font-size: 1rem; font-weight: 600;">
+                                    <span id="submitText">📨 Gönder</span>
+                                    <span id="submitSpinner" style="display: none; margin-left: 0.5rem;">⏳</span>
+                                </button>
+                                <button type="reset" class="btn btn-outline-secondary" style="padding: 0.75rem; font-size: 1rem; font-weight: 600;">
+                                    🔄 Formu Temizle
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card" style="margin-bottom: 1.5rem; border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1); overflow: hidden; transition: all 0.3s ease;">
+                    <div class="card-body" style="padding: 2rem;">
+                        <h5 style="font-size: 1.3rem; margin-bottom: 2rem; color: var(--text-dark); font-weight: 700;">📍 İletişim Bilgileri</h5>
+
+                        <div style="display: flex; margin-bottom: 2rem; align-items: flex-start;">
+                            <div style="flex-shrink: 0; margin-right: 1.5rem;">
+                                <div style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%); color: white; border-radius: 12px; padding: 0.75rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📧</div>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <h6 style="margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 700; font-size: 1rem;">E-posta</h6>
+                                <p style="color: var(--text-light); margin: 0; font-size: 0.95rem;">
+                                    <a href="mailto:info@techsupporthub.com" style="color: var(--primary-green); text-decoration: none; font-weight: 500; transition: opacity 0.3s;">
+                                        info@techsupporthub.com
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; margin-bottom: 2rem; align-items: flex-start;">
+                            <div style="flex-shrink: 0; margin-right: 1.5rem;">
+                                <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 12px; padding: 0.75rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📱</div>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <h6 style="margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 700; font-size: 1rem;">Telefon</h6>
+                                <p style="color: var(--text-light); margin: 0; font-size: 0.95rem;">
+                                    <a href="tel:+905001234567" style="color: var(--primary-green); text-decoration: none; font-weight: 500;">
+                                        +90 (500) 123 45 67
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; margin-bottom: 2rem; align-items: flex-start;">
+                            <div style="flex-shrink: 0; margin-right: 1.5rem;">
+                                <div style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); color: white; border-radius: 12px; padding: 0.75rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🏢</div>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <h6 style="margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 700; font-size: 1rem;">Adres</h6>
+                                <p style="color: var(--text-light); margin: 0; font-size: 0.95rem;">
+                                    Üniversite Mah. Teknoloji Cad. No:123<br>
+                                    Ankara, Türkiye
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: flex-start;">
+                            <div style="flex-shrink: 0; margin-right: 1.5rem;">
+                                <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; border-radius: 12px; padding: 0.75rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🕐</div>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <h6 style="margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 700; font-size: 1rem;">Çalışma Saatleri</h6>
+                                <p style="color: var(--text-light); margin: 0; font-size: 0.95rem;">
+                                    Pazartesi - Cuma: 09:00 - 18:00<br>
+                                    Cumartesi - Pazar: Kapalı
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1); overflow: hidden; transition: all 0.3s ease;">
+                    <div class="card-body" style="padding: 2rem;">
+                        <h5 style="font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--text-dark); font-weight: 700;">🌐 Sosyal Medya</h5>
+                        <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem;">
+                            Bizi sosyal medyada takip edin ve haberdar kalın
+                        </p>
+                        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                            <a href="https://www.linkedin.com/company/techsupporthub" target="_blank" rel="noopener noreferrer" class="btn btn-outline-linkedin" style="font-size: 0.9rem; padding: 0.6rem 1.2rem; font-weight: 600; transition: all 0.3s;">LinkedIn</a>
+                            <a href="https://www.instagram.com/techsupporthub" target="_blank" rel="noopener noreferrer" class="btn btn-outline-instagram" style="font-size: 0.9rem; padding: 0.6rem 1.2rem; font-weight: 600; transition: all 0.3s;">Instagram</a>
+                            <a href="https://www.facebook.com/techsupporthub" target="_blank" rel="noopener noreferrer" class="btn btn-outline-facebook" style="font-size: 0.9rem; padding: 0.6rem 1.2rem; font-weight: 600; transition: all 0.3s;">Facebook</a>
+                            <a href="https://www.youtube.com/@techsupporthub" target="_blank" rel="noopener noreferrer" class="btn btn-outline-youtube" style="font-size: 0.9rem; padding: 0.6rem 1.2rem; font-weight: 600; transition: all 0.3s;">YouTube</a>
+                            <a href="https://x.com/techsupporthub" target="_blank" rel="noopener noreferrer" class="btn btn-outline-x" style="font-size: 0.9rem; padding: 0.6rem 1.2rem; font-weight: 600; transition: all 0.3s;">𝕏</a>
+                            <a href="https://github.com/techsupporthub" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark" style="font-size: 0.9rem; padding: 0.6rem 1.2rem; font-weight: 600; transition: all 0.3s;">GitHub</a>
+                        </div>
+                          </div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p style="margin: 0; font-size: 0.95rem; text-align: center;">
+                <a href="index.html">Ana Sayfa</a> |
+                <a href="about.html">Hakkımızda</a> |
+                <a href="contact.html">İletişim</a> |
+                <a href="#">Gizlilik Politikası</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("contactForm");
+        const fullNameInput = document.getElementById("fullName");
+        const emailInput = document.getElementById("email");
+        const phoneInput = document.getElementById("phone");
+        const countryCodeSelect = document.getElementById("countryCode");
+        const successAlert = document.getElementById("successAlert");
+        const errorAlert = document.getElementById("errorAlert");
+        const errorMessage = document.getElementById("errorMessage");
+        const submitBtn = document.getElementById("submitBtn");
+        const submitText = document.getElementById("submitText");
+        const submitSpinner = document.getElementById("submitSpinner");
+
+        // Ad Soyad - Sadece harf kontrolü (Türkçe karakterler dahil)
+        fullNameInput.addEventListener("input", (e) => {
+          let value = e.target.value;
+          // Sadece harflere ve boşluğa izin ver (Türkçe karakterler dahil)
+          value = value.replace(/[^a-zA-ZğüşıöçĞÜŞİÖÇ\s]/g, "");
+          e.target.value = value;
+
+          if (value.length < 3) {
+            fullNameInput.setCustomValidity("En az 3 karakter gerekli");
+          } else if (!/^[a-zA-ZğüşıöçĞÜŞİÖÇ\s]+$/.test(value)) {
+            fullNameInput.setCustomValidity("Sadece harf kullanın");
+          } else {
+            fullNameInput.setCustomValidity("");
+          }
+        });
+
+        // E-posta - Gelişmiş doğrulama
+        emailInput.addEventListener("blur", (e) => {
+          const email = e.target.value.trim();
+          // Gelişmiş e-posta regex
+          const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+          if (email === "") {
+            emailInput.setCustomValidity("E-posta adresi gerekli");
+            document.getElementById("emailError").textContent =
+              "Lütfen e-posta adresinizi girin.";
+          } else if (!emailRegex.test(email)) {
+            emailInput.setCustomValidity("Geçersiz e-posta");
+            document.getElementById("emailError").textContent =
+              "Lütfen geçerli bir e-posta adresi girin (örn: kullanici@domain.com).";
+          } else if (email.includes("..")) {
+            emailInput.setCustomValidity("Geçersiz format");
+            document.getElementById("emailError").textContent =
+              "E-posta adresinde ardışık nokta kullanılamaz.";
+          } else if (email.startsWith(".") || email.endsWith(".")) {
+            emailInput.setCustomValidity("Geçersiz format");
+            document.getElementById("emailError").textContent =
+              "E-posta adresi nokta ile başlayamaz veya bitemez.";
+          } else {
+            emailInput.setCustomValidity("");
+          }
+        });
+
+        // Telefon - Sadece rakam kontrolü
+        phoneInput.addEventListener("input", (e) => {
+          let value = e.target.value;
+          // Sadece rakamlara izin ver
+          value = value.replace(/[^0-9]/g, "");
+          e.target.value = value;
+
+          if (value.length > 0 && (value.length < 10 || value.length > 15)) {
+            phoneInput.setCustomValidity("10-15 rakam arası olmalı");
+          } else {
+            phoneInput.setCustomValidity("");
+          }
+        });
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          // Manuel doğrulama
+          let isValid = true;
+
+          // Ad Soyad kontrolü
+          const fullName = fullNameInput.value.trim();
+          if (
+            fullName.length < 3 ||
+            !/^[a-zA-ZğüşıöçĞÜŞİÖÇ\s]+$/.test(fullName)
+          ) {
+            fullNameInput.classList.add("is-invalid");
+            isValid = false;
+          } else {
+            fullNameInput.classList.remove("is-invalid");
+            fullNameInput.classList.add("is-valid");
+          }
+
+          // E-posta kontrolü
+          const email = emailInput.value.trim();
+          const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          if (
+            !emailRegex.test(email) ||
+            email.includes("..") ||
+            email.startsWith(".") ||
+            email.endsWith(".")
+          ) {
+            emailInput.classList.add("is-invalid");
+            isValid = false;
+          } else {
+            emailInput.classList.remove("is-invalid");
+            emailInput.classList.add("is-valid");
+          }
+
+          // Telefon kontrolü (opsiyonel ama girilmişse doğru olmalı)
+          const phone = phoneInput.value.trim();
+          if (phone !== "" && !/^[0-9]{10,15}$/.test(phone)) {
+            phoneInput.classList.add("is-invalid");
+            isValid = false;
+          } else if (phone !== "") {
+            phoneInput.classList.remove("is-invalid");
+            phoneInput.classList.add("is-valid");
+          }
+
+          // Bootstrap validation
+          if (!form.checkValidity() || !isValid) {
+            form.classList.add("was-validated");
+            showError("Lütfen tüm zorunlu alanları doğru şekilde doldurun.");
+            return;
+          }
+
+          // Form verilerini hazırla
+          const formData = {
+            fullName: fullName,
+            email: email,
+            phone: phone ? countryCodeSelect.value + phone : "",
+            subject: document.getElementById("subject").value,
+            message: document.getElementById("message").value.trim(),
+            privacy: document.getElementById("privacyCheck").checked,
+          };
+
+          // Loading durumu
+          submitBtn.disabled = true;
+          submitText.style.display = "none";
+          submitSpinner.style.display = "inline-block";
+          successAlert.style.display = "none";
+          errorAlert.style.display = "none";
+
+          // Simüle edilmiş gönderim
+          setTimeout(() => {
+            successAlert.style.display = "block";
+            errorAlert.style.display = "none";
+
+            form.reset();
+            form.classList.remove("was-validated");
+
+            // Valid/invalid sınıflarını temizle
+            document
+              .querySelectorAll(".is-valid, .is-invalid")
+              .forEach((el) => {
+                el.classList.remove("is-valid", "is-invalid");
+              });
+
+            submitBtn.disabled = false;
+            submitText.style.display = "inline";
+            submitSpinner.style.display = "none";
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
+
+            console.log("Form gönderildi:", formData);
+          }, 2000);
+        });
+
+        function showError(message) {
+          errorMessage.textContent = message;
+          errorAlert.style.display = "block";
+          successAlert.style.display = "none";
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        form.addEventListener("reset", () => {
+          form.classList.remove("was-validated");
+          successAlert.style.display = "none";
+          errorAlert.style.display = "none";
+          document.querySelectorAll(".is-valid, .is-invalid").forEach((el) => {
+            el.classList.remove("is-valid", "is-invalid");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

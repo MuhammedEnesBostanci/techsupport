@@ -1,0 +1,136 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-01-12",
+  "supportCategories": [
+    {
+      "id": 1,
+      "name": "Bilgisayar Desteği",
+      "icon": "💻",
+      "description": "Masaüstü ve dizüstü bilgisayarlar için teknik destek",
+      "subCategories": [
+        {
+          "id": 101,
+          "name": "Windows Sorunları",
+          "solutions": [
+            {
+              "id": 1001,
+              "title": "Bilgisayar Açılmıyor",
+              "description": "Bilgisayarınız açılmadığında yapmanız gerekenler",
+              "steps": [
+                "Güç kablosunun doğru şekilde bağlı olduğunu kontrol edin",
+                "Monitörü kontrol edin",
+                "BIOS'u sıfırlamayı deneyin",
+                "Teknik destek ile iletişime geçin"
+              ]
+            },
+            {
+              "id": 1002,
+              "title": "Yavaş Çalışan Bilgisayar",
+              "description": "Bilgisayarınız yavaş çalışıyorsa izlemeniz gereken adımlar",
+              "steps": [
+                "Başlangıç programlarını kontrol edin",
+                "Diskinizi temizleyin",
+                "RAM kullanımını kontrol edin",
+                "Antivirüs taraması yapın"
+              ]
+            }
+          ]
+        },
+        {
+          "id": 102,
+          "name": "macOS Sorunları",
+          "solutions": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "İnternet ve Ağ",
+      "icon": "🌐",
+      "description": "İnternet bağlantısı ve ağ sorunları için çözümler",
+      "subCategories": [
+        {
+          "id": 201,
+          "name": "WiFi Bağlantısı",
+          "solutions": [
+            {
+              "id": 2001,
+              "title": "WiFi'ye Bağlanamıyorum",
+              "description": "WiFi bağlantı problemi çözümleri",
+              "steps": [
+                "Router'ı yeniden başlatın",
+                "WiFi şifresini kontrol edin",
+                "Ağ adaptörünü devre dışı bırakıp açın",
+                "DNS ayarlarını sıfırlayın"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Yazılım Desteği",
+      "icon": "📱",
+      "description": "Yazılım uygulamaları ve programlarla ilgili yardım",
+      "subCategories": []
+    }
+  ],
+  "articles": [
+    {
+      "id": 1,
+      "title": "Windows'u Yeniden Yükleme Rehberi",
+      "author": "Tech Support",
+      "date": "2025-01-10",
+      "category": "Bilgisayar Desteği",
+      "content": "Windows işletim sisteminizi baştan yüklemenin adım adım rehberi..."
+    },
+    {
+      "id": 2,
+      "title": "Yazılımlar Nasıl Güncellenir?",
+      "author": "Tech Support",
+      "date": "2025-01-09",
+      "category": "Yazılım Desteği",
+      "content": "Bilgisayarınızdaki yazılımları güvenli bir şekilde güncelleme süreci..."
+    }
+  ],
+  "faq": [
+    {
+      "id": 1,
+      "question": "Şifremi Unuttum Ne Yapmalıyım?",
+      "answer": "Hesap ayarlarında 'Şifremi Unuttum' seçeneğine tıklayarak yeniden ayarlayabilirsiniz.",
+      "views": 1523
+    },
+    {
+      "id": 2,
+      "question": "Uygulamayı Cihazıma Nasıl Kurabilirim?",
+      "answer": "Anasayfada 'Kur' butonu ile uygulamayı doğrudan cihazınıza kurabilirsiniz.",
+      "views": 2841
+    }
+  ],
+  "contacts": [
+    {
+      "id": 1,
+      "type": "email",
+      "label": "E-Posta",
+      "value": "destek@techsupport.com"
+    },
+    {
+      "id": 2,
+      "type": "phone",
+      "label": "Telefon",
+      "value": "+90 (212) 555-1234"
+    },
+    {
+      "id": 3,
+      "type": "address",
+      "label": "Adres",
+      "value": "İstanbul, Türkiye"
+    }
+  ],
+  "metadata": {
+    "supportHours": "24/7",
+    "responseTime": "5 dakika",
+    "languages": ["Türkçe", "İngilizce"]
+  }
+}

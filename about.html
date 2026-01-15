@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#10b981">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="TechSupport">
+    <meta name="description" content="TechSupport Hub - Yazılım sorularına profesyonel cevaplar. Stack Exchange API ile binlerce geliştiricinin deneyiminden yararlanın.">
+    <meta name="application-name" content="TechSupport Hub">
+    <meta name="msapplication-config" content="none">
+    <meta name="msapplication-TileColor" content="#10b981">
+    <title>Hakkımızda - TechSupport Hub</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🛠️</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2310b981' width='180' height='180' rx='40'/><text y='135' font-size='100' text-anchor='middle' x='90'>🛠️</text></svg>">
+    <style>
+        .text-muted { color: var(--text-light) !important; }
+        .h-100 { height: 100%; }
+        .border-primary { border: 2px solid #0d6efd !important; }
+        .border-success { border: 2px solid #198754 !important; }
+        .bg-primary { background-color: #0d6efd !important; color: white !important; }
+        .bg-success { background-color: #198754 !important; color: white !important; }
+        .text-white { color: white !important; }
+        .mb-0 { margin-bottom: 0 !important; }
+        .mb-2 { margin-bottom: 0.5rem !important; }
+        .mb-3 { margin-bottom: 1rem !important; }
+        .mb-4 { margin-bottom: 1.5rem !important; }
+        .mb-5 { margin-bottom: 3rem !important; }
+        .mt-1 { margin-top: 0.25rem !important; }
+        .mt-3 { margin-top: 1rem !important; }
+        .text-center { text-align: center; }
+        .list-unstyled { list-style: none; padding-left: 0; }
+        .small { font-size: 0.875rem; }
+        .fs-2 { font-size: 2rem; }
+        .text-primary { color: #0d6efd !important; }
+        .text-success { color: #198754 !important; }
+        .text-info { color: #0dcaf0 !important; }
+        .text-decoration-none { text-decoration: none !important; }
+        .img-fluid { max-width: 100%; height: auto; }
+        .rounded { border-radius: 8px; }
+        .shadow { box-shadow: var(--shadow); }
+        .card-header { padding: 1rem; border-bottom: 1px solid var(--border-light); }
+        .card-title { color: var(--text-dark); font-weight: 600; margin-bottom: 0.5rem; }
+        .bg-light { background-color: var(--bg-light-tertiary) !important; }
+        .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
+        .col-12, .col-md-4, .col-md-6, .col-lg-6 { padding: 0 15px; }
+        .col-12 { flex: 0 0 100%; max-width: 100%; }
+        .col-md-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+        .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+        .col-lg-6 { flex: 0 0 50%; max-width: 50%; }
+        @media (max-width: 992px) { .col-lg-6 { flex: 0 0 100%; max-width: 100%; } }
+        @media (max-width: 768px) { .col-md-4, .col-md-6 { flex: 0 0 100%; max-width: 100%; } }
+        code { background: var(--bg-light-tertiary); padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; }
+        .h3 { font-size: 1.5rem; }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                🛠️ TechSupport Hub
+            </div>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="services.html">Sorular</a></li>
+                <li><a href="about.html">Hakkımızda</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%); color: white; padding: 60px 20px; text-align: center;">
+        <div class="container">
+            <h1>Hakkımızda</h1>
+            <p style="font-size: 1.1rem; color: rgba(255,255,255,0.9);">TechSupport Hub - Yazılım Destek ve Knowledge Base Platformu</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row" style="margin-bottom: 3rem;">
+                <div class="col-lg-6" style="margin-bottom: 1.5rem;">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">📱 Uygulama Hakkında</h2>
+                    <p class="text-muted">
+                        TechSupport Hub, yazılım geliştiricilerin karşılaştıkları teknik sorunlara hızlı ve 
+                        güvenilir çözümler bulmalarını sağlayan modern bir Progressive Web Application (PWA) platformudur.
+                    </p>
+                    <p class="text-muted">
+                        Stack Exchange API entegrasyonu sayesinde Stack Overflow topluluğunun geniş bilgi 
+                        tabanına anında erişim imkanı sunuyoruz. Binlerce geliştiricinin deneyiminden yararlanarak 
+                        kod yazarken karşılaştığınız sorunlara profesyonel çözümler bulabilirsiniz.
+                    </p>
+                    <p class="text-muted">
+                        Bu uygulama, Web Tabanlı Mobil Uygulama Geliştirme dersi kapsamında eğitim amaçlı 
+                        geliştirilmiş bir projedir ve gerçek bir işletme senaryosu üzerinden PWA teknolojilerinin 
+                        uygulanmasını göstermektedir.
+                    </p>
+                </div>
+                
+            </div>
+
+            <!-- Teknik Detaylar -->
+            <div class="row" style="margin-bottom: 3rem;">
+                <div class="col-12">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">🔧 Teknik Detaylar</h2>
+                </div>
+
+                <!-- API Bilgileri -->
+                <div class="col-md-6" style="margin-bottom: 1.5rem;">
+                    <div class="card h-100" style="display: flex; flex-direction: column; border: 2px solid #0d6efd;">
+                        <div class="card-header bg-primary text-white" style="background-color: #0d6efd; color: white; padding: 1rem; border-bottom: none;">
+                            <h5 class="mb-0" style="margin-bottom: 0; color: white;">📡 Kullanılan API</h5>
+                        </div>
+                        <div class="card-body" style="flex-grow: 1; padding: 1.5rem;">
+                            <h6 class="card-title">Stack Exchange API v2.3</h6>
+                            <p class="card-text text-muted small">
+                                Stack Overflow'un resmi API'si üzerinden güncel yazılım sorularına ve detaylarına erişim.
+                            </p>
+                            <ul class="list-unstyled small">
+                                <li class="mb-2">
+                                    <strong>Ana Endpoint:</strong><br>
+                                    <code class="text-primary">api.stackexchange.com/2.3/questions</code>
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Detay Endpoint:</strong><br>
+                                    <code class="text-primary">api.stackexchange.com/2.3/questions/{id}</code>
+                                </li>
+                                <li>
+                                    <strong>Resmi Dokümantasyon:</strong><br>
+                                    <a href="https://api.stackexchange.com/docs" target="_blank" class="text-decoration-none">
+                                        api.stackexchange.com/docs →
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSS Framework -->
+                <div class="col-md-6" style="margin-bottom: 1.5rem;">
+                    <div class="card h-100" style="display: flex; flex-direction: column; border: 2px solid #198754;">
+                        <div class="card-header bg-success text-white" style="background-color: #198754; color: white; padding: 1rem; border-bottom: none;">
+                            <h5 class="mb-0" style="margin-bottom: 0; color: white;">🎨 CSS Framework</h5>
+                        </div>
+                        <div class="card-body" style="flex-grow: 1; padding: 1.5rem;">
+                            <h6 class="card-title">Bootstrap 5.3.0</h6>
+                            <p class="card-text text-muted small">
+                                Modern, responsive ve mobil uyumlu tasarım için Bootstrap CSS framework'ü kullanılmıştır.
+                            </p>
+                            <ul class="list-unstyled small">
+                                <li class="mb-2">
+                                    <strong>Versiyon:</strong> 5.3.0
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Kullanılan Özellikler:</strong>
+                                    <ul class="mt-1">
+                                        <li>Grid System (12 kolonlu responsive yapı)</li>
+                                        <li>Card & Button bileşenleri</li>
+                                        <li>Navbar & Navigation</li>
+                                        <li>Form components & Validation</li>
+                                        <li>Alert & Badge</li>
+                                        <li>Utility classes</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Resmi Dokümantasyon:</strong><br>
+                                    <a href="https://getbootstrap.com" target="_blank" class="text-decoration-none">
+                                        getbootstrap.com →
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PWA Özellikleri -->
+            <div class="row" style="margin-bottom: 3rem;">
+                <div class="col-12" style="margin-bottom: 1.5rem;">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">⚡ Progressive Web App Özellikleri</h2>
+                </div>
+
+                <div class="col-md-4" style="margin-bottom: 1rem;">
+                    <div class="card h-100" style="display: flex; flex-direction: column; padding: 1.5rem;">
+                        <div class="card-body" style="flex-grow: 1;">
+                            <div class="fs-2 text-primary mb-3" style="font-size: 2rem; margin-bottom: 1rem; color: #0d6efd;">📱</div>
+                            <h5 class="card-title">Kurulabilir Uygulama</h5>
+                            <p class="card-text text-muted small">
+                                Manifest.json dosyası ile tarayıcıdan cihazınıza kurulum yapabilir, 
+                                native uygulama gibi kullanabilirsiniz.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" style="margin-bottom: 1rem;">
+                    <div class="card h-100" style="display: flex; flex-direction: column; padding: 1.5rem;">
+                        <div class="card-body" style="flex-grow: 1;">
+                            <div class="fs-2 text-success mb-3" style="font-size: 2rem; margin-bottom: 1rem; color: #198754;">🔌</div>
+                            <h5 class="card-title">Offline Çalışma</h5>
+                            <p class="card-text text-muted small">
+                                Service Worker teknolojisi ile internet bağlantısı olmadan bile daha önce 
+                                görüntülediğiniz içeriklere erişebilirsiniz.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" style="margin-bottom: 1rem;">
+                    <div class="card h-100" style="display: flex; flex-direction: column; padding: 1.5rem;">
+                        <div class="card-body" style="flex-grow: 1;">
+                            <div class="fs-2 text-info mb-3" style="font-size: 2rem; margin-bottom: 1rem; color: #0dcaf0;">⚡</div>
+                            <h5 class="card-title">Hızlı Yükleme</h5>
+                            <p class="card-text text-muted small">
+                                Cache stratejileri sayesinde sayfalar ve kaynaklar hızlıca yüklenir, 
+                                akıcı bir kullanıcı deneyimi sağlar.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Offline Çalışma Açıklaması -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card bg-light" style="background-color: var(--bg-light-tertiary) !important; padding: 1.5rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">🔌 Offline Çalışma Mantığı</h5>
+                            <p class="text-muted">
+                                Uygulama, <strong>Cache-First</strong> stratejisi kullanarak çalışır:
+                            </p>
+                            <ol class="text-muted" style="padding-left: 1.5rem;">
+                                <li class="mb-2">
+                                    <strong>İlk Yükleme:</strong> Tüm statik dosyalar (HTML, CSS, JS, görseller) 
+                                    Service Worker tarafından cache'lenir.
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Sonraki İstekler:</strong> Önce cache'de aranır. Varsa cache'den sunulur, 
+                                    yoksa network üzerinden getirilir ve cache'e eklenir.
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Offline Durum:</strong> İnternet bağlantısı kesildiğinde cache'deki 
+                                    içerikler gösterilir. API çağrıları başarısız olursa yedek JSON verisi kullanılır.
+                                </li>
+                                <li>
+                                    <strong>Fallback:</strong> API'ye erişilemezse <code>/data/sample.json</code> 
+                                    dosyasından örnek veriler gösterilir ve kullanıcı bilgilendirilir.
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Geliştirici Bilgisi -->
+    <section style="padding: 60px 20px; background: var(--bg-light-secondary);">
+        <div class="container text-center">
+            <h2 style="margin-bottom: 2rem;">👨‍💻 Geliştirici</h2>
+            <div class="card" style="max-width: 500px; margin: 0 auto;">
+                <div style="padding: 2rem;">
+                    <h3 style="color: var(--primary-green);">Muhammed Enes Bostancı</h3>
+                    <p style="color: var(--text-light); font-size: 0.95rem; margin: 1rem 0;">
+                        Web Tabanlı Mobil Uygulama Geliştirme Dersi<br>
+                        Dönem Sonu Projesi - 2026
+                    </p>
+                    <p style="color: var(--text-medium);">
+                        Bu proje, PWA (Progressive Web App) teknolojilerinin gerçek bir senaryo 
+                        üzerinden uygulanmasını gösteren eğitim amaçlı bir çalışmadır.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>
+                <a href="index.html">Ana Sayfa</a> | 
+                <a href="services.html">Sorular</a> | 
+                <a href="contact.html">İletişim</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/install.js"></script>
+</body>
+</html>

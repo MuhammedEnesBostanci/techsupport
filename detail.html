@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10b981" />
+    <title>Soru Detayı - Tech Support Hub</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🛠️</text></svg>"
+    />
+    <!-- Prism.js for Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
+    <style>
+      :root {
+        --primary-green: #10b981;
+        --primary-green-dark: #059669;
+        --bg-light: #ffffff;
+        --bg-light-secondary: #f9fafb;
+        --bg-light-tertiary: #f3f4f6;
+        --text-dark: #111827;
+        --text-medium: #4b5563;
+        --text-light: #9ca3af;
+        --border-light: #e5e7eb;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      /* =======================
+   DARK MODE THEME
+======================= */
+html[data-theme="dark"] {
+  --bg-light: #0f172a;
+    --bg-light-secondary: #1e293b;
+    --bg-light-tertiary: #334155;
+
+   --text-dark: #f1f5f9;
+    --text-medium: #cbd5e1;
+    --text-light: #94a3b8;
+
+  --border-light: #475569;
+
+    --shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Genel arka plan */
+html[data-theme="dark"] body {
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+
+/* Card, panel vs */
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .answer-card,
+html[data-theme="dark"] .related-questions,
+html[data-theme="dark"] .share-section {
+  background: var(--bg-light-secondary);
+  border-color: var(--border-light);
+}
+
+/* Header */
+html[data-theme="dark"] header,
+html[data-theme="dark"] footer {
+  background: #0b0f0e;
+}
+
+/* Code blocks */
+html[data-theme="dark"] pre {
+  background: #020617;
+}
+
+/* Buttons */
+html[data-theme="dark"] .interaction-btn {
+  background: #111827;
+  color: var(--text-medium);
+}
+
+html[data-theme="dark"] .interaction-btn:hover {
+  border-color: var(--primary-green);
+}
+
+/* Links */
+html[data-theme="dark"] a {
+  color: #34d399;
+}
+
+
+      
+
+      /* Scroll Progress Bar */
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-green), #22c55e);
+        z-index: 9999;
+        transition: width 0.1s ease;
+      }
+
+      /* Scroll to Top Button */
+      .scroll-top-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--primary-green);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        z-index: 999;
+      }
+
+      .scroll-top-btn:hover {
+        background: var(--primary-green-dark);
+        transform: translateY(-5px);
+      }
+
+      .scroll-top-btn.show {
+        display: flex;
+      }
+
+      /* Code Block Enhancements */
+      .code-block-wrapper {
+        position: relative;
+        margin: 20px 0;
+      }
+
+      .code-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #2d3748;
+        padding: 8px 15px;
+        border-radius: 8px 8px 0 0;
+        color: #cbd5e0;
+        font-size: 12px;
+      }
+
+      .copy-code-btn {
+        background: var(--primary-green);
+        color: white;
+        border: none;
+        padding: 5px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.3s;
+      }
+
+      .copy-code-btn:hover {
+        background: var(--primary-green-dark);
+      }
+
+      .copy-code-btn.copied {
+        background: #22c55e;
+      }
+
+      /* Reading Time */
+      .reading-time {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--text-light);
+        font-size: 14px;
+        margin-left: 10px;
+      }
+
+      /* Share Buttons */
+      .share-section {
+        margin: 30px 0;
+        padding: 20px;
+        background: var(--bg-light-secondary);
+        border-radius: 10px;
+        border: 1px solid var(--border-light);
+      }
+
+      .share-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 15px;
+      }
+
+      .share-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+        color: white;
+      }
+
+      .share-btn.twitter { background: #1DA1F2; }
+      .share-btn.linkedin { background: #0A66C2; }
+      .share-btn.whatsapp { background: #25D366; }
+      .share-btn.copy-link { background: var(--text-medium); }
+
+      .share-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+
+      /* Answers Section */
+      .answers-section {
+        margin: 40px 0;
+      }
+
+      .answers-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .sort-dropdown {
+        padding: 8px 15px;
+        border: 1px solid var(--border-light);
+        border-radius: 6px;
+        background: var(--bg-light);
+        cursor: pointer;
+      }
+
+      .answer-card {
+        background: var(--bg-light);
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+        border: 1px solid var(--border-light);
+        box-shadow: var(--shadow-sm);
+        position: relative;
+        transition: all 0.3s;
+      }
+
+      .answer-card:hover {
+        box-shadow: var(--shadow);
+      }
+
+      .answer-card.accepted {
+        border-left: 4px solid var(--primary-green);
+        background: rgba(16, 185, 129, 0.05);
+      }
+
+      .accepted-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--primary-green);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 5px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .answer-vote {
+        position: absolute;
+        left: 25px;
+        top: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .vote-count {
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--text-dark);
+      }
+
+      .answer-content {
+        margin-left: 80px;
+      }
+
+      .answer-author {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid var(--border-light);
+      }
+
+      .answer-author img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      /* Related Questions Sidebar */
+      .related-questions {
+        background: var(--bg-light);
+        border-radius: 10px;
+        padding: 20px;
+        border: 1px solid var(--border-light);
+        position: sticky;
+        top: 20px;
+      }
+
+      .related-questions h3 {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: var(--text-dark);
+      }
+
+      .related-question-item {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .related-question-item:last-child {
+        border-bottom: none;
+      }
+
+      .related-question-item a {
+        color: var(--text-dark);
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .related-question-item a:hover {
+        color: var(--primary-green);
+      }
+
+      .related-stats {
+        display: flex;
+        gap: 15px;
+        margin-top: 8px;
+        font-size: 12px;
+        color: var(--text-light);
+      }
+
+      /* Interaction Buttons */
+      .interaction-bar {
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+      }
+
+      .interaction-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        background: var(--bg-light-secondary);
+        border: 1px solid var(--border-light);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 14px;
+        color: var(--text-medium);
+      }
+
+      .interaction-btn:hover {
+        background: var(--bg-light-tertiary);
+        border-color: var(--primary-green);
+      }
+
+      .interaction-btn.active {
+        background: var(--primary-green);
+        color: white;
+        border-color: var(--primary-green);
+      }
+
+      /* Notification Toast */
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: var(--text-dark);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        z-index: 9999;
+        animation: slideIn 0.3s ease;
+        display: none;
+      }
+
+      .toast.show {
+        display: block;
+      }
+
+      .toast.success {
+        background: var(--primary-green);
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .answer-content {
+          margin-left: 0;
+          margin-top: 60px;
+        }
+
+        .answer-vote {
+          left: auto;
+          right: 15px;
+          flex-direction: row;
+        }
+
+        .share-buttons {
+          flex-direction: column;
+        }
+
+        .scroll-top-btn {
+          bottom: 20px;
+          right: 20px;
+          width: 45px;
+          height: 45px;
+        }
+      }
+
+      .detail-header {
+        background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+        color: white;
+        padding: 40px 20px;
+        margin-bottom: 40px;
+      }
+
+      .detail-header h1 {
+        color: white;
+        margin-bottom: 15px;
+      }
+
+      .detail-meta {
+        display: flex;
+        gap: 20px;
+        font-size: 14px;
+        opacity: 0.9;
+        flex-wrap: wrap;
+      }
+
+      .question-detail-body {
+        background: var(--bg-light);
+        border-radius: 10px;
+        padding: 30px;
+        margin-bottom: 30px;
+        line-height: 1.8;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-light);
+        color: var(--text-dark);
+        overflow: hidden;
+      }
+
+      .question-detail-body h2 {
+        font-size: 24px;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        color: var(--text-dark);
+      }
+
+      .question-detail-body p {
+        margin: 15px 0;
+        color: var(--text-medium);
+      }
+
+      .question-detail-body code {
+        background: var(--bg-light-tertiary);
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Courier New", monospace;
+        color: var(--primary-green);
+        word-break: break-word;
+      }
+
+      .question-detail-body pre {
+        background: #2d3748;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+        color: #e2e8f0;
+        max-width: 100%;
+      }
+
+      .tag {
+        display: inline-block;
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--primary-green);
+        padding: 6px 12px;
+        border-radius: 3px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Scroll Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scrollTopBtn">↑</button>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Header & Navigation -->
+    <header>
+      <nav>
+        <div class="logo">🛠️ TechSupport Hub</div>
+        <ul>
+          <li><a href="index.html">Ana Sayfa</a></li>
+          <li><a href="services.html">Sorular</a></li>
+          <li><a href="about.html">Hakkımızda</a></li>
+          <li><a href="contact.html">İletişim</a></li>
+        </ul>
+       
+      </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section style="background: var(--bg-light-secondary); padding: 15px 20px; border-bottom: 1px solid var(--border-light);">
+      <div class="container">
+        <div style="display: flex; gap: 10px; align-items: center; font-size: 0.95rem; flex-wrap: wrap;">
+          <a href="index.html" style="color: var(--primary-green); text-decoration: none">Ana Sayfa</a>
+          <span style="color: var(--text-light)">/</span>
+          <a href="services.html" style="color: var(--primary-green); text-decoration: none">Sorular</a>
+          <span style="color: var(--text-light)">/</span>
+          <span style="color: var(--text-medium)">Soru Detayı</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detail Content -->
+    <section class="py-4">
+      <div class="container">
+        <!-- Loading -->
+        <div id="loading" class="text-center py-5">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p class="mt-3 text-muted">Soru detayları yükleniyor...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="text-center py-5" style="display: none">
+          <div class="display-1 text-danger mb-3">❌</div>
+          <h2 class="text-muted mb-3">Soru Bulunamadı</h2>
+          <p class="text-muted mb-4">İstenilen soru detayı yüklenemedi veya mevcut değil.</p>
+          <a href="services.html" class="btn btn-primary">← Sorular Listesine Dön</a>
+        </div>
+
+        <!-- Question Detail -->
+        <div id="questionDetail" style="display: none">
+          <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+              <!-- Statistics -->
+              <div style="background: var(--bg-light-secondary); padding: 2rem 1.5rem; margin-bottom: 2.5rem; border-radius: 16px; border: 1px solid var(--border-light);">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
+                  <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%); border-radius: 14px; padding: 1.8rem 2rem; border: 2px solid rgba(16, 185, 129, 0.2); text-align: center; min-width: 150px;">
+                    <div style="font-size: 2.2rem; font-weight: 800; color: var(--primary-green);" id="questionScore">0</div>
+                    <small style="color: var(--text-light); font-weight: 700;">⭐ Puan</small>
+                  </div>
+                  <div style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(22, 163, 74, 0.1) 100%); border-radius: 14px; padding: 1.8rem 2rem; border: 2px solid rgba(34, 197, 94, 0.2); text-align: center; min-width: 150px;">
+                    <div style="font-size: 2.2rem; font-weight: 800; color: #22c55e;" id="answerCount">0</div>
+                    <small style="color: var(--text-light); font-weight: 700;">💬 Cevap</small>
+                  </div>
+                  <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.1) 100%); border-radius: 14px; padding: 1.8rem 2rem; border: 2px solid rgba(59, 130, 246, 0.2); text-align: center; min-width: 150px;">
+                    <div style="font-size: 2.2rem; font-weight: 800; color: #3b82f6;" id="viewCount">0</div>
+                    <small style="color: var(--text-light); font-weight: 700;">👁️ Görüntüleme</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Title Card -->
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h1 class="h3 mb-3" id="questionTitle"></h1>
+                  
+                  <div class="d-flex flex-wrap gap-2 mb-3 text-muted small">
+                    <span>📅 Sorulma: <span id="creationDate"></span></span>
+                    <span>•</span>
+                    <span>🔄 Güncelleme: <span id="lastActivity"></span></span>
+                    <span class="reading-time">📖 <span id="readingTime">5</span> dk okuma</span>
+                  </div>
+
+                  <div id="questionTags" class="mb-3"></div>
+
+                  <!-- Interaction Bar -->
+                  <div class="interaction-bar">
+                    <button class="interaction-btn" id="favoriteBtn">
+                      ⭐ Favorilere Ekle
+                    </button>
+                    <button class="interaction-btn" id="helpfulBtn">
+                      👍 Yardımcı Oldu
+                    </button>
+                  </div>
+
+                  <div class="border-top pt-3">
+                    <div id="questionBody" class="question-content"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Share Section -->
+              <div class="share-section">
+                <h6 style="margin: 0 0 10px 0; color: var(--text-dark);">🔗 Bu soruyu paylaş</h6>
+                <div class="share-buttons">
+                  <button class="share-btn twitter" onclick="shareToTwitter()">
+                    🐦 Twitter
+                  </button>
+                  <button class="share-btn linkedin" onclick="shareToLinkedIn()">
+                    💼 LinkedIn
+                  </button>
+                  <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
+                    💬 WhatsApp
+                  </button>
+                  <button class="share-btn copy-link" onclick="copyLink()">
+                    📋 Linki Kopyala
+                  </button>
+                </div>
+              </div>
+
+              <!-- Answers Section -->
+              <div class="answers-section" id="answersSection" style="display: none;">
+                <div class="answers-header">
+                  <h2 style="margin: 0;">💬 Cevaplar (<span id="totalAnswers">0</span>)</h2>
+                  <select class="sort-dropdown" id="sortAnswers" onchange="sortAnswers()">
+                    <option value="score">En Yüksek Puan</option>
+                    <option value="date">En Yeni</option>
+                    <option value="oldest">En Eski</option>
+                  </select>
+                </div>
+                <div id="answersList"></div>
+              </div>
+
+              <!-- Owner Info -->
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h6 class="text-muted mb-3">👤 Soruyu Soran</h6>
+                  <div class="d-flex align-items-center gap-3">
+                    <img id="ownerAvatar" src="" alt="Avatar" class="rounded-circle" width="60" height="60" />
+                    <div>
+                      <h6 class="mb-0" id="ownerName"></h6>
+                      <p class="text-muted small mb-0">
+                        <span id="ownerReputation"></span> itibar puanı
+                      </p>
+                      <a id="ownerLink" href="#" target="_blank" class="small text-decoration-none">
+                        Stack Overflow profilini görüntüle →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stack Overflow Link -->
+              <div class="card bg-light">
+                <div class="card-body">
+                  <h6 class="mb-2">🔗 Orijinal Kaynağı Görüntüle</h6>
+                  <p class="text-muted small mb-3">
+                    Bu soru Stack Overflow topluluğundan alınmıştır.
+                  </p>
+                  <a id="stackOverflowLink" href="#" target="_blank" class="btn btn-primary">
+                    Stack Overflow'da Aç
+                  </a>
+                  <a href="services.html" class="btn btn-outline-secondary">
+                    ← Sorular Listesine Dön
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+              <!-- Related Questions -->
+              <div class="related-questions">
+                <h3>🔍 İlgili Sorular</h3>
+                <div id="relatedQuestions">
+                  <p class="text-muted small">Yükleniyor...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>
+          <a href="index.html">Ana Sayfa</a> |
+          <a href="services.html">Sorular</a> |
+          <a href="about.html">Hakkımızda</a>
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/install.js"></script>
+
+    <script>
+      let currentQuestion = null;
+      let allAnswers = [];
+
+      // Toast Notification
+      function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = `toast ${type} show`;
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+
+      // Scroll Progress Bar
+      window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('progressBar').style.width = scrolled + '%';
+
+        // Show/hide scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        if (winScroll > 300) {
+          scrollTopBtn.classList.add('show');
+        } else {
+          scrollTopBtn.classList.remove('show');
+        }
+      });
+
+      // Scroll to Top
+      document.getElementById('scrollTopBtn').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Share Functions
+      function shareToTwitter() {
+        const url = window.location.href;
+        const text = currentQuestion ? currentQuestion.title : 'TechSupport Hub';
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+      }
+
+      function shareToLinkedIn() {
+        const url = window.location.href;
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+      }
+
+      function shareToWhatsApp() {
+        const url = window.location.href;
+        const text = currentQuestion ? currentQuestion.title : 'TechSupport Hub';
+        window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+      }
+
+      function copyLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          showToast('Link panoya kopyalandı! 📋', 'success');
+        });
+      }
+
+      // Favorite Button
+      document.getElementById('favoriteBtn').addEventListener('click', function() {
+        this.classList.toggle('active');
+        if (this.classList.contains('active')) {
+          this.innerHTML = '⭐ Favorilerde';
+          showToast('Soruyu favorilere eklediniz! ⭐', 'success');
+        } else {
+          this.innerHTML = '⭐ Favorilere Ekle';
+          showToast('Favorilerden kaldırıldı', 'info');
+        }
+      });
+
+      // Helpful Button
+      document.getElementById('helpfulBtn').addEventListener('click', function() {
+        this.classList.toggle('active');
+        if (this.classList.contains('active')) {
+          this.innerHTML = '👍 Yardımcı Oldu';
+          showToast('Geri bildiriminiz için teşekkürler! 👍', 'success');
+        } else {
+          this.innerHTML = '👍 Yardımcı Oldu';
+        }
+      });
+
+      // Calculate Reading Time
+      function calculateReadingTime(text) {
+        const wordsPerMinute = 200;
+        const words = text.trim().split(/\s+/).length;
+        const time = Math.ceil(words / wordsPerMinute);
+        return time;
+      }
+
+      // Add Copy Buttons to Code Blocks
+      function addCopyButtonsToCode() {
+        const codeBlocks = document.querySelectorAll('pre code');
+        codeBlocks.forEach((block, index) => {
+          const pre = block.parentElement;
+          const wrapper = document.createElement('div');
+          wrapper.className = 'code-block-wrapper';
+          
+          const header = document.createElement('div');
+          header.className = 'code-header';
+          
+          const lang = block.className.match(/language-(\w+)/);
+          const langName = lang ? lang[1].toUpperCase() : 'CODE';
+          
+          header.innerHTML = `
+            <span>${langName}</span>
+            <button class="copy-code-btn" onclick="copyCode(this, ${index})">
+              📋 Kopyala
+            </button>
+          `;
+          
+          pre.parentNode.insertBefore(wrapper, pre);
+          wrapper.appendChild(header);
+          wrapper.appendChild(pre);
+        });
+      }
+
+      function copyCode(button, index) {
+        const codeBlock = document.querySelectorAll('pre code')[index];
+        const code = codeBlock.textContent;
+        
+        navigator.clipboard.writeText(code).then(() => {
+          button.classList.add('copied');
+          button.textContent = '✅ Kopyalandı';
+          showToast('Kod kopyalandı! 📋', 'success');
+          
+          setTimeout(() => {
+            button.classList.remove('copied');
+            button.textContent = '📋 Kopyala';
+          }, 2000);
+        });
+      }
+
+      // Sort Answers
+      function sortAnswers() {
+        const sortBy = document.getElementById('sortAnswers').value;
+        let sorted = [...allAnswers];
+        
+        if (sortBy === 'score') {
+          sorted.sort((a, b) => b.score - a.score);
+        } else if (sortBy === 'date') {
+          sorted.sort((a, b) => b.creation_date - a.creation_date);
+        } else if (sortBy === 'oldest') {
+          sorted.sort((a, b) => a.creation_date - b.creation_date);
+        }
+        
+        displayAnswers(sorted);
+      }
+
+      // Display Answers
+      function displayAnswers(answers) {
+        const answersList = document.getElementById('answersList');
+        
+        if (!answers || answers.length === 0) {
+          answersList.innerHTML = '<p class="text-muted">Henüz cevap yok.</p>';
+          return;
+        }
+
+        answersList.innerHTML = answers.map(answer => `
+          <div class="answer-card ${answer.is_accepted ? 'accepted' : ''}">
+            ${answer.is_accepted ? '<div class="accepted-badge">✓ Kabul Edildi</div>' : ''}
+            
+            <div class="answer-vote">
+              <div class="vote-count">${answer.score || 0}</div>
+              <small style="color: var(--text-light);">oy</small>
+            </div>
+            
+            <div class="answer-content">
+              <div class="answer-body">
+                ${answer.body || '<p>Cevap içeriği mevcut değil.</p>'}
+              </div>
+              
+              <div class="answer-author">
+                <img src="${answer.owner?.profile_image || 'https://via.placeholder.com/40'}" alt="Avatar">
+                <div>
+                  <strong>${answer.owner?.display_name || 'Anonim'}</strong>
+                  <p class="text-muted mb-0" style="font-size: 12px;">
+                    ${new Date(answer.creation_date * 1000).toLocaleDateString('tr-TR')} tarihinde cevapladı
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        // Syntax highlighting for answers
+        setTimeout(() => {
+          if (window.Prism) {
+            Prism.highlightAll();
+          }
+          addCopyButtonsToCode();
+        }, 100);
+      }
+
+      // Load Related Questions
+      async function loadRelatedQuestions(tags) {
+        const relatedDiv = document.getElementById('relatedQuestions');
+        
+        try {
+          // Simulate API call - gerçek API'de tags ile ilgili sorular çekilir
+          const mockRelated = [
+            {
+              question_id: 123,
+              title: "JavaScript async/await kullanımı hakkında",
+              score: 45,
+              answer_count: 12,
+              view_count: 1234
+            },
+            {
+              question_id: 124,
+              title: "React hooks ile state yönetimi",
+              score: 38,
+              answer_count: 8,
+              view_count: 892
+            },
+            {
+              question_id: 125,
+              title: "CSS Grid Layout ile responsive tasarım",
+              score: 52,
+              answer_count: 15,
+              view_count: 2156
+            },
+            {
+              question_id: 126,
+              title: "Node.js Express middleware nedir?",
+              score: 29,
+              answer_count: 6,
+              view_count: 678
+            }
+          ];
+
+          relatedDiv.innerHTML = mockRelated.map(q => `
+            <div class="related-question-item">
+              <a href="detail.html?id=${q.question_id}">${q.title}</a>
+              <div class="related-stats">
+                <span>⭐ ${q.score}</span>
+                <span>💬 ${q.answer_count}</span>
+                <span>👁️ ${q.view_count}</span>
+              </div>
+            </div>
+          `).join('');
+
+        } catch (error) {
+          relatedDiv.innerHTML = '<p class="text-muted small">İlgili sorular yüklenemedi.</p>';
+        }
+      }
+
+      // Main Load Function
+      document.addEventListener("DOMContentLoaded", async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const questionId = urlParams.get("id");
+
+        const loading = document.getElementById("loading");
+        const questionDetail = document.getElementById("questionDetail");
+        const errorState = document.getElementById("errorState");
+
+        if (!questionId) {
+          loading.style.display = "none";
+          errorState.style.display = "block";
+          return;
+        }
+
+        try {
+          const result = await getQuestionDetail(questionId);
+          loading.style.display = "none";
+
+          if (result && result.success && result.data) {
+            currentQuestion = result.data;
+            displayQuestionDetail(result.data);
+            questionDetail.style.display = "block";
+
+            // Load related questions
+            if (result.data.tags) {
+              loadRelatedQuestions(result.data.tags);
+            }
+          } else {
+            errorState.style.display = "block";
+          }
+        } catch (error) {
+          loading.style.display = "none";
+          errorState.style.display = "block";
+          console.error("Detay yükleme hatası:", error);
+        }
+      });
+
+      function displayQuestionDetail(question) {
+        // Title
+        document.getElementById("questionTitle").textContent = question.title;
+
+        // Statistics
+        document.getElementById("questionScore").textContent = question.score || 0;
+        document.getElementById("answerCount").textContent = question.answer_count || 0;
+        document.getElementById("viewCount").textContent = question.view_count || 0;
+
+        // Dates
+        const creationDate = new Date(question.creation_date * 1000);
+        const lastActivity = new Date(question.last_activity_date * 1000);
+
+        document.getElementById("creationDate").textContent = creationDate.toLocaleDateString("tr-TR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+
+        document.getElementById("lastActivity").textContent = lastActivity.toLocaleDateString("tr-TR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+
+        // Tags
+        const tagsHTML = question.tags
+          .map((tag) => `<span class="tag">${tag}</span>`)
+          .join("");
+        document.getElementById("questionTags").innerHTML = tagsHTML;
+
+        // Question Body
+        const bodyContent = question.body || '<p style="color: var(--text-light);">Soru içeriği mevcut değil.</p>';
+        document.getElementById("questionBody").innerHTML = bodyContent;
+
+        // Calculate reading time
+        const plainText = bodyContent.replace(/<[^>]*>/g, '');
+        const readingTime = calculateReadingTime(plainText);
+        document.getElementById("readingTime").textContent = readingTime;
+
+        // Owner Info
+        if (question.owner) {
+          document.getElementById("ownerAvatar").src = question.owner.profile_image || "https://via.placeholder.com/60?text=User";
+          document.getElementById("ownerName").textContent = question.owner.display_name || "Anonim";
+          document.getElementById("ownerReputation").textContent = (question.owner.reputation || 0).toLocaleString("tr-TR");
+          document.getElementById("ownerLink").href = question.owner.link || "#";
+        }
+
+        // Stack Overflow Link
+        document.getElementById("stackOverflowLink").href = question.link || "#";
+
+        // Page Title
+        document.title = `${question.title} - TechSupport Hub`;
+
+        // Answers Section
+        if (question.answers && question.answers.length > 0) {
+          allAnswers = question.answers;
+          document.getElementById('answersSection').style.display = 'block';
+          document.getElementById('totalAnswers').textContent = question.answers.length;
+          displayAnswers(question.answers);
+        }
+
+        // Apply syntax highlighting and add copy buttons
+        setTimeout(() => {
+          if (window.Prism) {
+            Prism.highlightAll();
+          }
+          addCopyButtonsToCode();
+        }, 100);
+      }
+
+      // Mock getQuestionDetail function if api.js doesn't exist
+      if (typeof getQuestionDetail === 'undefined') {
+        async function getQuestionDetail(id) {
+          // Mock data for demonstration
+          return {
+            success: true,
+            data: {
+              question_id: id,
+              title: "JavaScript'te async/await nasıl kullanılır?",
+              body: `
+                <p>JavaScript'te asenkron işlemleri yönetmek için async/await kullanmak istiyorum ancak tam olarak nasıl çalıştığını anlamadım.</p>
+                <p>Örnek bir kod:</p>
+                <pre><code class="language-javascript">async function fetchData() {
+  const response = await fetch('https://api.example.com/data');
+  const data = await response.json();
+  return data;
+}</code></pre>
+                <p>Bu kod bloğu doğru mu? Hata yönetimi nasıl yapmalıyım?</p>
+              `,
+              score: 42,
+              answer_count: 3,
+              view_count: 1523,
+              creation_date: Date.now() / 1000 - 86400 * 5,
+              last_activity_date: Date.now() / 1000 - 86400 * 2,
+              tags: ["javascript", "async-await", "promises"],
+              owner: {
+                display_name: "Ahmet Yılmaz",
+                profile_image: "https://via.placeholder.com/60?text=AY",
+                reputation: 2543,
+                link: "https://stackoverflow.com/users/123456"
+              },
+              link: "https://stackoverflow.com/questions/" + id,
+              answers: [
+                {
+                  answer_id: 1,
+                  score: 25,
+                  is_accepted: true,
+                  creation_date: Date.now() / 1000 - 86400 * 4,
+                  body: `
+                    <p>Evet, kodunuz doğru! Async/await, Promise tabanlı kod yazmayı daha okunaklı hale getirir.</p>
+                    <p>Hata yönetimi için try-catch kullanabilirsiniz:</p>
+                    <pre><code class="language-javascript">async function fetchData() {
+  try {
+    const response = await fetch('https://api.example.com/data');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Fetch error:', error);
+    throw error;
+  }
+}</code></pre>
+                    <p>Bu şekilde hem network hatalarını hem de JSON parse hatalarını yakalayabilirsiniz.</p>
+                  `,
+                  owner: {
+                    display_name: "Mehmet Demir",
+                    profile_image: "https://via.placeholder.com/40?text=MD",
+                    reputation: 5432
+                  }
+                },
+                {
+                  answer_id: 2,
+                  score: 15,
+                  is_accepted: false,
+                  creation_date: Date.now() / 1000 - 86400 * 3,
+                  body: `
+                    <p>Alternatif olarak Promise.catch() metodunu da kullanabilirsiniz:</p>
+                    <pre><code class="language-javascript">async function fetchData() {
+  return fetch('https://api.example.com/data')
+    .then(response => response.json())
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}</code></pre>
+                  `,
+                  owner: {
+                    display_name: "Ayşe Kaya",
+                    profile_image: "https://via.placeholder.com/40?text=AK",
+                    reputation: 3210
+                  }
+                },
+                {
+                  answer_id: 3,
+                  score: 8,
+                  is_accepted: false,
+                  creation_date: Date.now() / 1000 - 86400 * 2,
+                  body: `
+                    <p>Ayrıca async fonksiyonlar her zaman Promise döndürür. Bu yüzden çağırırken de await kullanmalısınız:</p>
+                    <pre><code class="language-javascript">// Kullanım
+const result = await fetchData();
+console.log(result);</code></pre>
+                  `,
+                  owner: {
+                    display_name: "Can Özdemir",
+                    profile_image: "https://via.placeholder.com/40?text=CO",
+                    reputation: 1876
+                  }
+                }
+              ]
+            }
+          };
+        }
+      }
+       const toggleBtn = document.getElementById("themeToggle");
+  const html = document.documentElement;
+
+  // Sayfa açılınca kaydedilmiş tema varsa uygula
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    html.setAttribute("data-theme", savedTheme);
+    toggleBtn.innerHTML = savedTheme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    const currentTheme = html.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+    html.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+
+    toggleBtn.innerHTML = newTheme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
+    showToast(`Tema değiştirildi: ${newTheme === "dark" ? "Dark" : "Light"} 🌗`);
+  });
+    </script>
+  </body>
+</html>
